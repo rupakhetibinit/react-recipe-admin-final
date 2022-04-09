@@ -1,40 +1,34 @@
-import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
-
+import React, { useContext, useEffect } from 'react';
+import { ChakraProvider, Box, Grid, theme, Button } from '@chakra-ui/react';
+import Login from './components/Login';
+import { AuthContext } from './context/AuthContext';
 function App() {
+  const { user, setUser } = useContext(AuthContext);
+  useEffect(() => {
+    const localUser = JSON.parse(localStorage.getItem('user'));
+    localUser && setUser({ ...localUser });
+  }, []);
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
+      {!user.name ? (
+        <Login />
+      ) : (
+        <div>
+          <Button
+            onClick={() => {
+              setUser({
+                isAdmin: false,
+                email: '',
+                token: '',
+                name: '',
+              });
+              localStorage.removeItem('user');
+            }}
+          >
+            Log Out
+          </Button>
+        </div>
+      )}
     </ChakraProvider>
   );
 }
