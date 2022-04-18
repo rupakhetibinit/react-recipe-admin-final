@@ -1,0 +1,108 @@
+import {
+  Avatar,
+  Divider,
+  Flex,
+  Heading,
+  IconButton,
+  Text,
+} from '@chakra-ui/react';
+import React, { useState, useContext } from 'react';
+import { IoIosPaw } from 'react-icons/io';
+import {
+  FiMenu,
+  FiHome,
+  FiShoppingCart,
+  FiUsers,
+  FiPlus,
+} from 'react-icons/fi';
+import { AuthContext } from '../context/AuthContext';
+import NavItem from './NavItem';
+const SideBar = () => {
+  const tabs = [
+    { title: 'Dashboard', active: true, icon: FiHome },
+    { title: 'Home', active: false, icon: FiShoppingCart },
+    { title: 'Users', active: false, icon: FiUsers },
+    { title: 'Add Recipe', active: false, icon: FiPlus },
+  ];
+  const [navSize, setNavSize] = useState('large');
+  const { user, setUser } = useContext(AuthContext);
+  return (
+    <Flex
+      position="sticky"
+      left="5"
+      h="95vh"
+      marginTop="2.5vh"
+      boxShadow="0 4px 12px 0 rgba(0,0,0,0.05)"
+      borderRadius={navSize === 'small' ? '15px' : '30px'}
+      w={navSize === 'small' ? '75px' : '200px'}
+      flexDirection="column"
+      justifyContent="space-between"
+      background="gray.100"
+    >
+      <Flex
+        padding="5%"
+        v
+        flexDirection="column"
+        alignItems={navSize === 'small' ? 'center' : 'flex-start'}
+        as="nav"
+      >
+        <IconButton
+          background="none"
+          _focus={{ boxShadow: 'none' }}
+          mt={5}
+          _hover={{ background: 'gray.200' }}
+          icon={<FiMenu />}
+          onClick={() => {
+            console.log('clicked');
+            if (navSize === 'small') {
+              setNavSize('large');
+            } else {
+              setNavSize('small');
+            }
+          }}
+        />
+        {tabs.map(tab => (
+          <NavItem
+            navSize={navSize}
+            icon={tab.icon}
+            title={tab.title}
+            active={tab.active}
+            key={tab.title}
+          />
+        ))}
+        {/* <NavItem
+          navSize={navSize}
+          icon={FiShoppingCart}
+          title="Orders"
+          active
+        />
+        <NavItem navSize={navSize} icon={FiUsers} title="Users" />
+        <NavItem navSize={navSize} icon={FiPlus} title="Add Recipe" /> */}
+      </Flex>
+      <Flex
+        p="5%"
+        flexDirection="column"
+        w="100%"
+        mb={4}
+        alignItems={navSize === 'small' ? 'center' : 'flex-start'}
+      >
+        <Divider display={navSize === 'small' ? 'none' : 'flex'} />
+        <Flex mt={4} alignItems="center">
+          <Avatar size="sm" />
+          <Flex
+            flexDirection="column"
+            marginLeft="4"
+            display={navSize === 'small' ? 'none' : 'flex'}
+          >
+            <Heading as="h3" width={40} size="sm">
+              {user.name}
+            </Heading>
+            <Text color="gray">Admin</Text>
+          </Flex>
+        </Flex>
+      </Flex>
+    </Flex>
+  );
+};
+
+export default SideBar;

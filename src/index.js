@@ -1,14 +1,13 @@
-import { ColorModeScript } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <StrictMode>
     <AuthProvider>
-      <ColorModeScript />
       <App />
     </AuthProvider>
-  </StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 );
