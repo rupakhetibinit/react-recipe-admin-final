@@ -11,26 +11,7 @@ function App() {
   }, [setUser]);
   return (
     <ChakraProvider theme={theme}>
-      {!user.name ? (
-        <Login />
-      ) : (
-        <MainPage />
-        // <div>
-        //   <Button
-        //     onClick={() => {
-        //       setUser({
-        //         isAdmin: false,
-        //         email: '',
-        //         token: '',
-        //         name: '',
-        //       });
-        //       localStorage.removeItem('user');
-        //     }}
-        //   >
-        //     Log Out
-        //   </Button>
-        // </div>
-      )}
+      {!user.name ? <Login /> : <MainPage />}
     </ChakraProvider>
   );
 }

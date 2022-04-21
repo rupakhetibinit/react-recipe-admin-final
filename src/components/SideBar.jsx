@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Divider,
   Flex,
   Heading,
@@ -87,6 +88,21 @@ const SideBar = ({ selectedTab, setSelectedTab }) => {
         mb={4}
         alignItems={navSize === 'small' ? 'center' : 'flex-start'}
       >
+        <div>
+          <Button
+            onClick={() => {
+              setUser({
+                isAdmin: false,
+                email: '',
+                token: '',
+                name: '',
+              });
+              localStorage.removeItem('user');
+            }}
+          >
+            Log Out
+          </Button>
+        </div>
         <Divider display={navSize === 'small' ? 'none' : 'flex'} />
         <Flex mt={4} alignItems="center">
           <Avatar size="sm" />
