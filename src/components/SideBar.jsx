@@ -7,7 +7,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React, { useState, useContext } from 'react';
-import { IoIosPaw } from 'react-icons/io';
 import {
   FiMenu,
   FiHome,
@@ -17,12 +16,12 @@ import {
 } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
 import NavItem from './NavItem';
-const SideBar = () => {
+const SideBar = ({ selectedTab, setSelectedTab }) => {
   const tabs = [
-    { title: 'Dashboard', active: true, icon: FiHome },
-    { title: 'Home', active: false, icon: FiShoppingCart },
-    { title: 'Users', active: false, icon: FiUsers },
-    { title: 'Add Recipe', active: false, icon: FiPlus },
+    // { title: 'Dashboard', icon: FiHome },
+    { title: 'Orders', icon: FiShoppingCart },
+    { title: 'Users', icon: FiUsers },
+    { title: 'Add Recipe', icon: FiPlus },
   ];
   const [navSize, setNavSize] = useState('large');
   const { user, setUser } = useContext(AuthContext);
@@ -66,7 +65,9 @@ const SideBar = () => {
             navSize={navSize}
             icon={tab.icon}
             title={tab.title}
-            active={tab.active}
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+            active={selectedTab === tab.title ? true : false}
             key={tab.title}
           />
         ))}

@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'));
     !!localUser && setUser({ ...localUser });
-  }, []);
+  }, [setUser]);
   return (
     <ChakraProvider theme={theme}>
       {!user.name ? (

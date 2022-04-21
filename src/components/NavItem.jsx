@@ -9,7 +9,14 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-const NavItem = ({ navSize, title, icon, active }) => {
+const NavItem = ({
+  navSize,
+  title,
+  icon,
+  active,
+  setSelectedTab,
+  selectedTab,
+}) => {
   return (
     <Flex
       marginTop={30}
@@ -24,6 +31,7 @@ const NavItem = ({ navSize, title, icon, active }) => {
           borderRadius={8}
           _hover={{ textDecoration: 'none', backgroundColor: '#AEC8CA' }}
           w={navSize === 'large' && '100%'}
+          onClick={() => setSelectedTab(title)}
         >
           <MenuButton>
             <Flex alignItems="center">
