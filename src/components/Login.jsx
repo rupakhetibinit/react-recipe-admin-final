@@ -40,7 +40,7 @@ const Login = () => {
                   ...user,
                   email: res.data.email,
                   token: res.data.accessToken,
-                  name: res.data.email,
+                  name: res.data.name,
                   isAdmin: res.data.isAdmin,
                 });
                 localStorage.setItem(
